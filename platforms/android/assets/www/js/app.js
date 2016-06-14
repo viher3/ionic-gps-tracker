@@ -3,9 +3,10 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'ngMap'])
+angular.module('ionic-gps-tracker', ['ionic', 'ngMap'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform) 
+{
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,15 +24,8 @@ angular.module('starter', ['ionic', 'ngMap'])
 
   });
 })
-
-
-.controller('TodoCtrl', function($scope, $ionicLoading) {
-
-    var posOptions = {
-      timeout: 1000, 
-      enableHighAccuracy: false
-    };
-
+.controller('GpsCtrl', function($scope, $ionicLoading) 
+{
     // init pos
     $scope.positions = [{
       lat: 42.3569986,
@@ -72,36 +66,45 @@ angular.module('starter', ['ionic', 'ngMap'])
       });
     };
 
-});
+})
+.controller('IndexCtrl', function($scope)
+{
+  var intervalGetPosition;
 
+  $scope.jsonPositionsLog   = [];
+  $scope.isTrackingPosition = false;
 
-/*
-.controller('TodoCtrl', function($cordovaGeolocation) {
-
-  var posOptions = {timeout: 10000, enableHighAccuracy: false};
-
-  navigator.geolocation.getCurrentPosition(posOptions)
-  .then(function (position) 
+  $scope.startTracking = function()
   {
-    var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    $scope.positions.push({lat: pos.k,lng: pos.B});
-    $scope.map.setCenter(pos);
-    $ionicLoading.hide();
-  }, 
-  function(err)
-  {
-    alert('error');
-  });
+    intervalGetPosition = setInterval(function()
+    { 
+      getCurrentPosition(); 
+    }, 
+    5000);
+  }
 
-  $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-      var lat  = position.coords.latitude
-      var long = position.coords.longitude
-      alert(lat + ' | ' + long);
-  }, 
-  function(err) 
+  getCurrentPosition = function()
   {
-      // error
-  });
+    navigator.geolocation.getCurrentPosition(function(position) 
+    {
+      // get lat and long
+      var latitude  = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      
+      // add positions to array
+      $scope.jsonPositionsLog.push({
+        latitude: latitude,
+        longitude: longitude
+      });
 
-});
-*/
+      console.log(latitude + "/" + longitude);
+    });
+  }
+
+  $scope.stopGettingPosition = function()
+  {
+    clearInterval(intervalGetPosition);
+  }
+
+})
+;
