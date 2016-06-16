@@ -24,6 +24,7 @@ angular.module('ionic-gps-tracker', ['ionic', 'ngMap'])
 
   });
 })
+/*
 .controller('GpsCtrl', function($scope, $ionicLoading) 
 {
     // init pos
@@ -67,6 +68,7 @@ angular.module('ionic-gps-tracker', ['ionic', 'ngMap'])
     };
 
 })
+*/
 .controller('IndexCtrl', function($scope)
 {
   var intervalGetPosition;
@@ -76,11 +78,7 @@ angular.module('ionic-gps-tracker', ['ionic', 'ngMap'])
 
   $scope.startTracking = function()
   {
-    intervalGetPosition = setInterval(function()
-    { 
-      getCurrentPosition(); 
-    }, 
-    5000);
+    getCurrentPosition();
   }
 
   getCurrentPosition = function()
@@ -97,13 +95,33 @@ angular.module('ionic-gps-tracker', ['ionic', 'ngMap'])
         longitude: longitude
       });
 
+      $scope.$apply();
+
       console.log(latitude + "/" + longitude);
+    });
+
+    // change position event
+    intervalGetPosition = navigator.geolocation.watchPosition( function(position)
+    {
+      $scope.jsonPositionsLog.push({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+
+      $scope.$apply();
+    }, 
+    function(error)
+    {
+      console.log(error.message);
+    }, 
+    { 
+      timeout: 5000 
     });
   }
 
   $scope.stopGettingPosition = function()
   {
-    clearInterval(intervalGetPosition);
+    navigator.geolocation.clearWatch(intervalGetPosition);
   }
 
 })
