@@ -1,4 +1,4 @@
-<ion-content class="has-header">
+<ion-content class="has-header" scroll="false">
 
   <br />
   <br />
@@ -8,9 +8,18 @@
 
   <div class="list list-inset padding-horizontal">
 
+    <span class="input-label"><i class="ion-android-cloud-outline"></i>&nbsp; Host</span>
+    <label class="item item-input item-stacked-label">
+      <input type="text" ng-model="login.server_host" />
+    </label>
+
+  </div>
+
+  <div class="list list-inset padding-horizontal">
+
     <span class="input-label"><i class="ion-android-mail"></i>&nbsp; Email</span>
     <label class="item item-input item-stacked-label">
-      <input type="text" />
+      <input type="email" ng-model="login.server_user" />
     </label>
 
   </div>
@@ -19,7 +28,7 @@
 
     <span class="input-label"><i class="ion-android-lock"></i>&nbsp; Password</span>
     <label class="item item-input item-stacked-label">
-      <input type="password" />
+      <input type="password" ng-model="login.server_pwd" />
     </label>
   </div>
 
@@ -29,7 +38,7 @@
   <br />
 
   <p align="center">
-    <button class="button button-positive">
+    <button class="button button-positive" ng-click="signin()">
       <i class="ion-arrow-right-c"></i>
       &nbsp;Sign in
     </button>
