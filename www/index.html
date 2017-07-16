@@ -32,33 +32,44 @@
 
   <body ng-app="ionic-gps-tracker">
 
-    <div id="container" ng-controller="IndexController">
+    <ion-header-bar class="bar bar-header bar-dark">
+      <h1 class="title"><i class="ion-location"></i>&nbsp; Ionic GPS Tracker</h1>
+    </ion-header-bar>
 
-      <h1 align="center" class="title">Ionic GPS Tracker</h1>
+    <ion-content class="has-header login-content">
 
-      <div class="row">
-        <div class="col text-center">
-          <button ng-show="isTrackingPosition == false" ng-click="isTrackingPosition = true; startTracking();" class="button button-positive">Start tracking position</button>
-          <button ng-show="isTrackingPosition == true" ng-click="isTrackingPosition = false; stopTrackingPosition();" class="button button-assertive">Stop tracking position</button>
-        </div>
+      <h1 class="login-title" align="center">Sign in to your account</h1>
+
+      <div class="list list-inset">
+
+        <span class="input-label"><i class="ion-android-mail"></i>&nbsp; Email</span>
+        <label class="item item-input item-stacked-label">
+          <input type="text" />
+        </label>
+
       </div>
 
-      <div class="row">
-        <div class="col text-center">
+      <div class="list list-inset">
 
-          <p><strong>Tracking:</strong> {{ isTrackingPosition }}</p>
-          <br />
-
-          <ul id="positionsList">
-            <li ng-repeat="position in jsonPositionsLog">
-              {{ position.latitude }}, {{ position.longitude }}
-            </li>
-          </ul>
-
-        </div>
+        <span class="input-label"><i class="ion-android-lock"></i>&nbsp; Password</span>
+        <label class="item item-input item-stacked-label">
+          <input type="password" />
+        </label>
       </div>
 
-    </div>
+      <p align="center">
+        <a href="#">Forgot your password?</a>
+      </p>
+      <br />
+
+      <p align="center">
+        <button class="button button-positive">
+          <i class="ion-arrow-right-c"></i>
+          &nbsp;Sign in
+        </button>
+      </p>
+
+    </ion-content>
 
   </body>
 </html>

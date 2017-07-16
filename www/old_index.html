@@ -1,0 +1,27 @@
+<div id="container" ng-controller="IndexController">
+
+      <h1 align="center" class="title">Ionic GPS Tracker</h1>
+
+      <div class="row">
+        <div class="col text-center">
+          <button ng-show="isTrackingPosition == false" ng-click="isTrackingPosition = true; startTracking();" class="button button-positive">Start tracking position</button>
+          <button ng-show="isTrackingPosition == true" ng-click="isTrackingPosition = false; stopTrackingPosition();" class="button button-assertive">Stop tracking position</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col text-center">
+
+          <p><strong>Tracking:</strong> {{ isTrackingPosition }}</p>
+          <br />
+
+          <ul id="positionsList">
+            <li ng-repeat="position in jsonPositionsLog">
+              {{ position.latitude }}, {{ position.longitude }}
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>

@@ -19,3 +19,9 @@ div#container h1{
 ul#positionsList{
 	list-style: none;
 }
+.login-content{
+	padding: 20px;
+}
+.login-title{
+	padding: 30px 0;
+}
